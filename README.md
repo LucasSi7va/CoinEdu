@@ -201,6 +201,31 @@ O sistema:
 
 - Como usuário, quero receber alertas de variação nas últimas 24h, para acompanhar o mercado.
 
+
+## 8. MVP do Projeto
+
+A primeira versão do sistema incluirá apenas funcionalidades essenciais para validar a proposta educacional da plataforma:
+
+- Consulta de informações básicas sobre criptomoedas
+- Visualização simplificada de preços
+- Sistema de favoritos
+- Modo idoso para acessibilidade
+
+
+## Arquitetura do Sistema
+
+O sistema segue uma arquitetura cliente-servidor.
+
+
+
+Componentes principais:
+
+- Frontend: React
+- Backend: Spring Boot
+- API externa: CoinGecko
+- Banco de dados: PostgreSQL
+
+
 ## 🛠 Tecnologias Utilizadas
 
 ![Java](https://img.shields.io/badge/Java-17-orange?logo=java)
@@ -209,4 +234,4 @@ O sistema:
 
 
 ## falta para terminar 
-mvp, diagrama, ferramentas , Modelo de Dados Mínimo
+diagrama, ferramentas , Modelo de Dados Mínimo
