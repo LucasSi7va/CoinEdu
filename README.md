@@ -216,7 +216,7 @@ A primeira versão do sistema incluirá apenas funcionalidades essenciais para v
 
 O sistema segue uma arquitetura cliente-servidor.
 
-![Texto da imagem](Diagram_Arquiterura)
+![Diagram Arquitetura](docs/Diagram/Diagram_Arquiterura.png)
 
 Componentes principais:
 
@@ -234,4 +234,4 @@ Componentes principais:
 
 
 ## falta para terminar 
-diagrama, ferramentas , Modelo de Dados Mínimo
+ ferramentas , Modelo de Dados Mínimo
