@@ -216,7 +216,7 @@ A primeira versão do sistema incluirá apenas funcionalidades essenciais para v
 
 O sistema segue uma arquitetura cliente-servidor.
 
-
+![Texto da imagem](Diagram_Arquiterura)
 
 Componentes principais:
 
