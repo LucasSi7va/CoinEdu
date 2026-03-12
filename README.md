@@ -228,8 +228,8 @@ Componentes principais:
 
 ## 🛠 Tecnologias Utilizadas
 
-![Java](https://img.shields.io/badge/Java-17-orange?logo=java)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen?logo=springboot)
+![Java](https://img.shields.io/badge/Java-21-orange?logo=java)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.x-brightgreen?logo=springboot)
 ![React](https://img.shields.io/badge/React-18-blue?logo=react)
 
 
