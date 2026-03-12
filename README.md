@@ -211,6 +211,15 @@ A primeira versão do sistema incluirá apenas funcionalidades essenciais para v
 - Sistema de favoritos
 - Modo idoso para acessibilidade
 
+##  Arquitetura do MVP 
+
+O sistema foi modelado para garantir simplicidade e performance, utilizando as seguintes entidades:
+
+* **Usuario**: Gerencia o perfil e as preferências de acessibilidade (Modo Idoso).
+* **Moeda**: Centraliza dados de mercado e conteúdos educativos simplificados.
+* **Favorito**: Permite o acompanhamento personalizado de ativos selecionados pelo usuário.
+* **Simulacao**: Lógica para cálculos educativos de valorização/desvalorização baseada em dados históricos.
+
 
 ## Arquitetura do Sistema
 
