@@ -70,8 +70,6 @@ private final ServiceSse serviceSse;
                         )
                     );
 
-
-
                     ultimosAlertas.put(chave, LocalDateTime.now());
 
                 }

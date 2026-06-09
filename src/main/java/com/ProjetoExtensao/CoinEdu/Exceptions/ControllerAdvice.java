@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+
 @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException exception) {
     ErrorResponse errorResponse = new ErrorResponse(404 , exception.getMessage());
@@ -20,6 +21,13 @@ public class ControllerAdvice {
     public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException exception) {
     ErrorResponse errorResponse = new ErrorResponse(400 , exception.getMessage());
     return ResponseEntity.badRequest().body(errorResponse);
+}
+
+
+@ExceptionHandler(RuntimeException.class)
+public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception) {
+    ErrorResponse errorResponse = new ErrorResponse(503, exception.getMessage());
+    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse);
 }
 
 

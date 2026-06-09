@@ -1,10 +1,12 @@
 package com.ProjetoExtensao.CoinEdu.service;
 
-import com.ProjetoExtensao.CoinEdu.dto.MoedaDto;
+import com.ProjetoExtensao.CoinEdu.dto.CompraSimuladaDTO;
 import com.ProjetoExtensao.CoinEdu.dto.SimulacaoDto;
 import com.ProjetoExtensao.CoinEdu.model.Carteira;
+import com.ProjetoExtensao.CoinEdu.model.SimuladorHistorico;
 import com.ProjetoExtensao.CoinEdu.model.Usuario;
 import com.ProjetoExtensao.CoinEdu.repository.CarteiraRepository;
+import com.ProjetoExtensao.CoinEdu.repository.SimuladorHistoricoRepository;
 import com.ProjetoExtensao.CoinEdu.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -22,8 +25,7 @@ public class ServiceCarteira {
 
     @Autowired
     private final CarteiraRepository carteiraRepository;
-    @Autowired
-    private final ServiceMoedaAPI serviceMoedaAPI;
+
 
 
     public ResponseEntity<String> salvarCarteira(Long idUsuario, String moeda) {

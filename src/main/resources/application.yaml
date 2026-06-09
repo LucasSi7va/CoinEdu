@@ -29,7 +29,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: coinedu64@gmail.com
-    password: "lkzj bjpl ydqi yvle"
+    password: "drah wdyk gqag qumw"
     properties:
       mail:
         smtp:

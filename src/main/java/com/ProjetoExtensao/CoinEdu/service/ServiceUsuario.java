@@ -3,7 +3,9 @@ package com.ProjetoExtensao.CoinEdu.service;
 import com.ProjetoExtensao.CoinEdu.dto.*;
 import com.ProjetoExtensao.CoinEdu.dto.filtroGlobal.FiltroGlobal;
 import com.ProjetoExtensao.CoinEdu.model.Carteira;
+import com.ProjetoExtensao.CoinEdu.model.SimuladorHistorico;
 import com.ProjetoExtensao.CoinEdu.model.Usuario;
+import com.ProjetoExtensao.CoinEdu.repository.SimuladorHistoricoRepository;
 import com.ProjetoExtensao.CoinEdu.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ServiceUsuario {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private SimuladorHistoricoRepository simuladorHistoricoRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -240,4 +245,6 @@ public class ServiceUsuario {
 
 
     }
+
+
 }
