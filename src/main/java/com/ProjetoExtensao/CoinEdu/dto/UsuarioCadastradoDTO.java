@@ -1,9 +1,12 @@
 package com.ProjetoExtensao.CoinEdu.dto;
 
-public record UsuarioDto(
+public record UsuarioCadastradoDTO(
+
         Long id,
         String nome,
         String email ,
         String FotoPerfil ,
-        String CapaPerfil ) {
+        String CapaPerfil,
+        String senha
+) {
 }

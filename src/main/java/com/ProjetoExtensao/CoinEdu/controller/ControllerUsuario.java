@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -43,7 +45,7 @@ public ResponseEntity<UsuarioDto> getUsuario(@PathVariable Long id){
 }
 
 @PostMapping("/confirmar-cadastro")
-public ResponseEntity<UsuarioDto> confirmarCadastro(
+public ResponseEntity<UsuarioCadastradoDTO> confirmarCadastro(
         @RequestBody ConfirmarCadastroDto dto) {
 return serviceUsuario.confirmarCadastro(dto.email() , dto.codigo());
 }
@@ -65,11 +67,16 @@ public ResponseEntity<String> ajustarFotoECapa(@RequestBody PerfilRequestDto req
 }
 
 
-@PutMapping("/atualizar-usuario")
-public ResponseEntity<String> editarNome(@RequestParam String nome , @RequestParam String senha , @RequestParam String email)
-{
-    return serviceUsuario.atualizarUsuario(email ,  nome , senha);
-}
+    @PutMapping("/atualizar-usuario")
+    public ResponseEntity<String> atualizar(@RequestBody AtualizarUsuarioDTO dto,
+                                            @AuthenticationPrincipal UserDetails userDetails) {
+        String emailAutenticado = userDetails.getUsername();
+        return serviceUsuario.atualizarUsuario(dto, emailAutenticado);
+    }
+
+
+
+
 
     @PatchMapping("/{id}/alternar-modo-idoso")
     public ResponseEntity<ModoIdosoDto> ModoIdoso(@PathVariable Long id) {

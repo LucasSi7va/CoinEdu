@@ -72,7 +72,4 @@ public class ControllerCarteira {
     public ResponseEntity<List<CompraSimuladaDTO>> buscarHistorico(@PathVariable Long usuarioId , @PathVariable String nomeMoeda) {
         return ResponseEntity.ok(serviceSimuladorHistorico.buscarHistorico(usuarioId , nomeMoeda));
     }
-
-
-
 }

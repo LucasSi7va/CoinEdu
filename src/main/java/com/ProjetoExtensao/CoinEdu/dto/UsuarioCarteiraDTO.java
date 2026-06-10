@@ -6,6 +6,7 @@ public record UsuarioCarteiraDTO(
         Long id ,
         String nome,
         String email,
+        String token,
         String fotoPerfil ,
         String capaPerfil ,
         List<String> moeda
