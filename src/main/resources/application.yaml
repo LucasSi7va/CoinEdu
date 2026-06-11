@@ -22,8 +22,8 @@ spring:
 
   cache:
     caffeine:
-      cache-names=moeda,historico:
-      spec=maximumSize=500,expireAfterWrite=5m:
+      cache-names: moeda,historico
+      spec: maximumSize=500,expireAfterWrite=5m
 
   mail:
     host: smtp.gmail.com
@@ -36,3 +36,7 @@ spring:
           auth: true
           starttls:
             enable: true
+
+
+jwt:
+  secret: coinEduSuperSecretKeyAqui2024MinimoDe32Caracteres

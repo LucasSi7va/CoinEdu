@@ -5,6 +5,5 @@ public record UsuarioDto(
         String nome,
         String email ,
         String FotoPerfil ,
-        String CapaPerfil ,
-        String senha ) {
+        String CapaPerfil ) {
 }

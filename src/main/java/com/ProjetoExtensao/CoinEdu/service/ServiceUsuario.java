@@ -1,10 +1,11 @@
 package com.ProjetoExtensao.CoinEdu.service;
 
 import com.ProjetoExtensao.CoinEdu.dto.*;
-import com.ProjetoExtensao.CoinEdu.dto.filtroGlobal.FiltroGlobal;
 import com.ProjetoExtensao.CoinEdu.model.Carteira;
 import com.ProjetoExtensao.CoinEdu.model.Usuario;
+import com.ProjetoExtensao.CoinEdu.repository.SimuladorHistoricoRepository;
 import com.ProjetoExtensao.CoinEdu.repository.UsuarioRepository;
+import com.ProjetoExtensao.CoinEdu.security.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +25,16 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class ServiceUsuario {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ServiceMoedaAPI serviceMoedaAPI;
-    @Autowired
-    private EmailService emailService;
+    private final SimuladorHistoricoRepository simuladorHistoricoRepository;
 
+    private final PasswordEncoder passwordEncoder;
+    private final ServiceMoedaAPI serviceMoedaAPI;
+
+    private final EmailService emailService;
+
+    private final JwtUtil jwtUtil;
 
     private final Map<String, PendenteCadastroDto> pendentes = new ConcurrentHashMap<>();
 
@@ -47,7 +48,6 @@ public class ServiceUsuario {
                         u.getId(),
                         u.getNome(),
                         u.getEmail(),
-                        u.getSenha(),
                         u.getFotoPerfil(),
                         u.getCapaPerfil()
                 ))
@@ -64,7 +64,6 @@ public class ServiceUsuario {
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getEmail(),
-                usuario.getSenha() ,
                 usuario.getFotoPerfil() ,
                 usuario.getCapaPerfil()
         ));
@@ -121,7 +120,7 @@ public class ServiceUsuario {
 
 
 
-    public ResponseEntity<UsuarioDto> confirmarCadastro(String email, String codigo) {
+    public ResponseEntity<UsuarioCadastradoDTO> confirmarCadastro(String email, String codigo) {
         PendenteCadastroDto pendente = pendentes.get(email);
 
         if (pendente == null) {
@@ -150,7 +149,7 @@ public class ServiceUsuario {
         pendentes.remove(email);
 
 
-        return ResponseEntity.ok( new UsuarioDto(
+        return ResponseEntity.ok( new UsuarioCadastradoDTO(
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getEmail(),
@@ -170,12 +169,15 @@ public class ServiceUsuario {
             throw new RuntimeException("Senha invãlida");
         }
 
+        String token = jwtUtil.gerarToken(usuario.getEmail());
+
        List<String> favoritas = usuario.getCarteira().getMoedasFavoritas();
 
         return ResponseEntity.ok(new UsuarioCarteiraDTO(
         usuario.getId(),
         usuario.getNome() ,
         usuario.getEmail() ,
+        token,
         usuario.getFotoPerfil(),
         usuario.getCapaPerfil(),
         favoritas
@@ -226,13 +228,34 @@ public class ServiceUsuario {
         ));
     }
 
-    public ResponseEntity<String> atualizarUsuario(String email,String nome, String senha) {
+    public ResponseEntity<String> atualizarUsuario(AtualizarUsuarioDTO dto, String emailAutenticado) {
 
-        Usuario usuario = usuarioRepository.findByEmail(email)
+        Usuario usuario = usuarioRepository.findByEmail(emailAutenticado)
                 .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
 
-        usuario.setNome(nome);
-        usuario.setSenha(senha);
+
+        if (dto.novoNome() != null && !dto.novoNome().isBlank()) {
+            usuario.setNome(dto.novoNome());
+        }
+
+        if (dto.novoEmail() != null && !dto.novoEmail().isBlank()) {
+<<<<<<< HEAD
+            usuarioRepository.findByEmail(dto.novoEmail()).ifPresent( u -> {
+                if (!u.getEmail().equals(emailAutenticado)) {
+                    throw new RuntimeException("Email ja esta em uso");
+                }
+                    });
+=======
+            if (usuarioRepository.findByEmail(dto.novoEmail()).isPresent()) {
+                return ResponseEntity.badRequest().body("Email ja esta em uso");
+            }
+>>>>>>> 0492d1d7fcdab0cf6881f27414dd37333a5ad531
+            usuario.setEmail(dto.novoEmail());
+        }
+
+        if (dto.novaSenha() != null && !dto.novaSenha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(dto.novaSenha()));
+        }
 
         usuarioRepository.save(usuario);
 
@@ -240,4 +263,6 @@ public class ServiceUsuario {
 
 
     }
+
+
 }

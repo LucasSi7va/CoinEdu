@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.CoinEdu.Exceptions;
+package com.ProjetoExtensao.CoinEdu.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

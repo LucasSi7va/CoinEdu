@@ -1,5 +1,6 @@
 package com.ProjetoExtensao.CoinEdu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Carteira {
 
     @JoinColumn(name = "usuario_id")
     @OneToOne
+    @JsonIgnore
     private Usuario usuario;
 
     @ElementCollection(fetch = FetchType.EAGER)

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "volatilidade",
+    "titulo": "Sobe e Desce de Preços",
+    "descricao": "Imagine que o preço é como uma maré: às vezes está alta, às vezes está baixa.",
+    "dicaIdoso": "Se o valor cair hoje, não se assuste, ele pode subir amanhã."
+  },
+  {
+    "id": "bitcoin",
+    "titulo": "O que é Bitcoin?",
+    "descricao": "É como um dinheiro digital que não precisa de banco para ser guardado.",
+    "dicaIdoso": "Funciona como uma moeda que só existe no computador e telemóvel."
+  }
+]
