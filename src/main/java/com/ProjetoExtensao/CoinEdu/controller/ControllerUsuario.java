@@ -74,12 +74,9 @@ public ResponseEntity<String> ajustarFotoECapa(@RequestBody PerfilRequestDto req
         System.out.println("DTO recebido: " + dto);
         System.out.println("UserDetails: " + userDetails);
         System.out.println("Email: " + userDetails.getUsername());
-    String emailAutenticado = userDetails.getUsername();
+        String emailAutenticado = userDetails.getUsername();
         return serviceUsuario.atualizarUsuario(dto, emailAutenticado);
     }
-
-
-
 
 
     @PatchMapping("/{id}/alternar-modo-idoso")

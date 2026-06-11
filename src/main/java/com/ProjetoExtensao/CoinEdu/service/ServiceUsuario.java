@@ -233,17 +233,16 @@ public class ServiceUsuario {
         Usuario usuario = usuarioRepository.findByEmail(emailAutenticado)
                 .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
 
-
         if (dto.novoNome() != null && !dto.novoNome().isBlank()) {
             usuario.setNome(dto.novoNome());
         }
 
         if (dto.novoEmail() != null && !dto.novoEmail().isBlank()) {
-            usuarioRepository.findByEmail(dto.novoEmail()).ifPresent( u -> {
+            usuarioRepository.findByEmail(dto.novoEmail()).ifPresent(u -> {
                 if (!u.getEmail().equals(emailAutenticado)) {
                     throw new RuntimeException("Email ja esta em uso");
                 }
-                    });
+            });
             usuario.setEmail(dto.novoEmail());
         }
 
@@ -254,9 +253,6 @@ public class ServiceUsuario {
         usuarioRepository.save(usuario);
 
         return ResponseEntity.ok("nome e senha atualizada com sucesso");
-
-
     }
-
 
 }

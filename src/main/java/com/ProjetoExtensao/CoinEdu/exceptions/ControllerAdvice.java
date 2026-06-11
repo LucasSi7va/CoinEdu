@@ -1,6 +1,7 @@
 package com.ProjetoExtensao.CoinEdu.exceptions;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.elasticsearch.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,44 +13,49 @@ import java.nio.file.AccessDeniedException;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-
-
-
-@ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException exception) {
-    ErrorResponse errorResponse = new ErrorResponse(400 , exception.getMessage());
-    return ResponseEntity.badRequest().body(errorResponse);
-}
+        ErrorResponse errorResponse = new ErrorResponse(400, exception.getMessage());
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorResponse> handleForbidden(AccessDeniedException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(403, "Acesso negado. Token inválido ou ausente.");
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+    public ResponseEntity<ErrorResponse> handleForbidden(AccessDeniedException exception, HttpServletRequest request) {
+        String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("text/event-stream")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse(403, "Acesso negado. Token inválido ou ausente."));
     }
-
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(404 , exception.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException exception, HttpServletRequest request) {
+        String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("text/event-stream")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(404, exception.getMessage()));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception, HttpServletRequest request) {
+        String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("text/event-stream")) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
+        }
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new ErrorResponse(503, exception.getMessage()));
     }
 
 
-@ExceptionHandler(RuntimeException.class)
-public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception) {
-    ErrorResponse errorResponse = new ErrorResponse(503, exception.getMessage());
-    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse);
-}
-
-
-@ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneral(Exception exception) {
-    exception.printStackTrace();
-    ErrorResponse errorResponse = new ErrorResponse(500, exception.getMessage());
-    return ResponseEntity.internalServerError().body(errorResponse);
-}
-
-
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneral(Exception exception, HttpServletRequest request) {
+        String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("text/event-stream")) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        exception.printStackTrace();
+        return ResponseEntity.internalServerError().body(new ErrorResponse(500, exception.getMessage()));
+    }
 }
 
 
