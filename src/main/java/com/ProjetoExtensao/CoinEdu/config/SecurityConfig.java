@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/usuario/cadastrar",
                                 "/usuario/confirmar-cadastro",
+<<<<<<< HEAD
                                 "/usuario/login",
                                 "/usuario/editar-fotoPerfil",
                                 "/usuario/editar-fotoPerfil/**",
@@ -38,6 +39,9 @@ public class SecurityConfig {
                                 "/alertas/stream",
                                 "/carteira/**"
 
+=======
+                                "/usuario/login"
+>>>>>>> 0492d1d7fcdab0cf6881f27414dd37333a5ad531
                         ).permitAll().anyRequest().authenticated()
                 ).addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class);
         return http.build();
