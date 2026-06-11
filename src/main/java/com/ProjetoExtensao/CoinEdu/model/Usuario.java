@@ -28,10 +28,10 @@ public class Usuario {
     @Column(name = "senha", nullable = false , length = 60)
     private String senha;
 
-    @Column(name = "foto-perfil")
+    @Column(name = "foto-perfil" , columnDefinition = "TEXT")
     private String fotoPerfil;
 
-    @Column(name = "capa-perfil")
+    @Column(name = "capa-perfil" , columnDefinition = "TEXT")
     private String capaPerfil;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)

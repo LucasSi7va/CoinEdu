@@ -1,21 +1,20 @@
 package com.ProjetoExtensao.CoinEdu.controller;
 
 import com.ProjetoExtensao.CoinEdu.dto.*;
-import com.ProjetoExtensao.CoinEdu.model.SimuladorHistorico;
+
 import com.ProjetoExtensao.CoinEdu.model.Usuario;
-import com.ProjetoExtensao.CoinEdu.service.ServiceCarteira;
+
 import com.ProjetoExtensao.CoinEdu.service.ServiceUsuario;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+
 import java.util.List;
 
 @RestController
@@ -77,6 +76,9 @@ public ResponseEntity<String> ajustarFotoECapa(@RequestBody PerfilRequestDto req
         String emailAutenticado = userDetails.getUsername();
         return serviceUsuario.atualizarUsuario(dto, emailAutenticado);
     }
+
+
+
 
 
     @PatchMapping("/{id}/alternar-modo-idoso")
