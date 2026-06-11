@@ -28,8 +28,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: coinedu64@gmail.com
-    password: "drah wdyk gqag qumw"
+    username: "adiciona o seu gmail"
+    password: "Adiciona sua senha do app do gmail"
     properties:
       mail:
         smtp:
