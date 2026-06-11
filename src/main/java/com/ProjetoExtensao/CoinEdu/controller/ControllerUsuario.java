@@ -70,11 +70,15 @@ public ResponseEntity<String> ajustarFotoECapa(@RequestBody PerfilRequestDto req
     @PutMapping("/atualizar-usuario")
     public ResponseEntity<String> atualizar(@RequestBody AtualizarUsuarioDTO dto,
                                             @AuthenticationPrincipal UserDetails userDetails) {
+<<<<<<< HEAD
 
         System.out.println("DTO recebido: " + dto);
         System.out.println("UserDetails: " + userDetails);
         System.out.println("Email: " + userDetails.getUsername());
     String emailAutenticado = userDetails.getUsername();
+=======
+        String emailAutenticado = userDetails.getUsername();
+>>>>>>> 0492d1d7fcdab0cf6881f27414dd37333a5ad531
         return serviceUsuario.atualizarUsuario(dto, emailAutenticado);
     }
 

@@ -27,7 +27,11 @@ public class JwtUtil {
                 .setSubject(email) // captura o email
                 .setIssuedAt(new Date()) // define a data da criacao do token para o meial
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // define a expiracao da data da criacao do token
+<<<<<<< HEAD
                 .signWith(SignatureAlgorithm.HS256 , getKey()) /* Assina o token usando a chave secreta
+=======
+                .signWith(SignatureAlgorithm.HS256 , SECRET) /* Assina o token usando a chave secreta
+>>>>>>> 0492d1d7fcdab0cf6881f27414dd37333a5ad531
                  garantindo que ninguem possa alterar o email sem ter o conhecimento da chave */
                 .compact(); // transforma tudo em JWT
     }
@@ -35,7 +39,11 @@ public class JwtUtil {
     // extrai o token para
     public String extrairEmail(String token) {
         return Jwts.parser()// cria um leito para JWT
+<<<<<<< HEAD
                 .setSigningKey(getKey()) // informa para qual chave deve ser usada para validar
+=======
+                .setSigningKey(SECRET) // informa para qual chave deve ser usada para validar
+>>>>>>> 0492d1d7fcdab0cf6881f27414dd37333a5ad531
                 .parseClaimsJws(token) // decodifica o token
                 .getBody() // ele retorna o email
                 .getSubject(); // recupera o campo do email

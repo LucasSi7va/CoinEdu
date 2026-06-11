@@ -239,11 +239,17 @@ public class ServiceUsuario {
         }
 
         if (dto.novoEmail() != null && !dto.novoEmail().isBlank()) {
+<<<<<<< HEAD
             usuarioRepository.findByEmail(dto.novoEmail()).ifPresent( u -> {
                 if (!u.getEmail().equals(emailAutenticado)) {
                     throw new RuntimeException("Email ja esta em uso");
                 }
                     });
+=======
+            if (usuarioRepository.findByEmail(dto.novoEmail()).isPresent()) {
+                return ResponseEntity.badRequest().body("Email ja esta em uso");
+            }
+>>>>>>> 0492d1d7fcdab0cf6881f27414dd37333a5ad531
             usuario.setEmail(dto.novoEmail());
         }
 
